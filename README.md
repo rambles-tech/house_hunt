@@ -1,10 +1,10 @@
 # Zillow Data Engineering Pipeline
 
-![Pipeline Overview](./assets/pipeline-overview.png)
+![Pipeline Overview](run_through.gif)
 
 ## Overview
 
-This project demonstrates a comprehensive data engineering solution that starts with fetching real estate listings from Zillow using its API, and then efficiently processes and manages this data through a structured flow involving a data lake, data warehouse, and a final ETL (Extract, Transform, Load) operation. The end product is a clean, processed CSV data which gets loaded into an Amazon Redshift database.
+This project demonstrates a comprehensive data engineering solution that starts with fetching real estate listings from Zillow using its API, and then efficiently processes and manages this data through a structured pipeline involving a data lake, data warehouse, and a final ETL (Extract, Transform, Load) operation. The end product is a clean, processed CSV data which gets loaded into an Amazon Redshift database.
 
 ## Table of Contents
 
@@ -29,27 +29,31 @@ This project demonstrates a comprehensive data engineering solution that starts 
 
 The pipeline follows a structured flow:
 
-1. **Data Extraction**: Using Zillow API to get the listings in JSON format.
-2. **Data Lake**: Store the raw JSON in an S3 bucket allowing for flexibility and scalability.
-3. **Data Warehouse**: Further processing and management using AWS solutions.
-4. **ETL Process**: The data is then transformed from JSON to CSV and loaded into Redshift.
+1. **Data Collection**: Airflow runninging on an EC2 instance with a DAG that manages the retrieval of listings in JSON with [Zillow API](https://rapidapi.com/s.mahmoud97/api/zillow56)
+
+2. **Data Lake**: Using AWS Lambda function to store the raw JSON in an S3 bucket allowing for flexibility and scalability.
+
+3. **Data Warehouse**: Using another AWS Lambda function to process the JSON into CSV with select columns and then loading into another S3 bucket.
+
+4. **ETL Process**: The data is then parsed and loaded into AWS Redshift database for querying and processing.
 
 ## Prerequisites
 
 - An AWS Account
 - Configured AWS CLI
 - Zillow API Key
+    - [Checkout API Hub](https://rapidapi.com/s.mahmoud97/api/zillow56)
 
 ## Setup and Installation
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/your_username/Zillow-Data-Engineering-Pipeline.git
+    git clone https://github.com/rambles-tech/zillow_analytics_pipeline
     ```
 
 2. **Navigate to the project directory**:
     ```bash
-    cd Zillow-Data-Engineering-Pipeline
+    cd zillow_analytics_pipeline
     ```
 
 3. **Set up the required environment variables**:
